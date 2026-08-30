@@ -1,0 +1,117 @@
+// This is your Prisma schema file
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  
+}
+
+// ==========================
+// USER MODEL
+// ==========================
+model User {
+  id           Int      @id @default(autoincrement())
+  name         String
+  email        String   @unique
+  password     String
+  role         String   @default("user") // "user" or "admin"
+  createdAt    DateTime @default(now())
+
+  gmailRefreshToken String?
+  gmailConnected    Boolean  @default(false)
+
+  resumes      Resume[]
+  applications Application[]
+}
+
+// ==========================
+// RESUME MODEL
+// ==========================
+model Resume {
+  id            Int      @id @default(autoincrement())
+  fileUrl       String
+  rawText       String?  // extracted text from PDF
+  skills        String[] // list of skills AI extracted, e.g. ["React", "Node.js"]
+  experienceYrs Int?
+  uploadedAt    DateTime @default(now())
+
+  userId        Int
+  user          User     @relation(fields: [userId], references: [id])
+
+  applications  Application[]
+}
+
+// ==========================
+// JOB MODEL
+// ==========================
+model Job {
+  id            Int      @id @default(autoincrement())
+  title         String
+  company       String
+  description   String
+  requiredSkills String[] // e.g. ["React", "Node.js", "PostgreSQL", "Docker"]
+  location      String?
+  createdAt     DateTime @default(now())
+
+  applications  Application[]
+}
+
+// ==========================
+// APPLICATION MODEL
+// ==========================
+model Application {
+  id           Int      @id @default(autoincrement())
+  status       String   @default("applied")
+  // "applied" | "interview" | "assessment" | "offer" | "rejected"
+  matchScore   Int?     // AI generated match %, e.g. 72
+  missingSkills String[]
+  appliedAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  userId       Int
+  user         User     @relation(fields: [userId], references: [id])
+
+  jobId        Int
+  job          Job      @relation(fields: [jobId], references: [id])
+
+  resumeId     Int
+  resume       Resume   @relation(fields: [resumeId], references: [id])
+
+  interviews   Interview[]
+  emails       Email[]
+
+  @@index([userId])
+  @@index([jobId])
+}
+
+// ==========================
+// INTERVIEW MODEL
+// ==========================
+model Interview {
+  id            Int      @id @default(autoincrement())
+  scheduledAt   DateTime?
+  round         String?  // e.g. "Technical Round 1"
+  notes         String?
+  createdAt     DateTime @default(now())
+
+  applicationId Int
+  application   Application @relation(fields: [applicationId], references: [id])
+}
+
+// ==========================
+// EMAIL MODEL (Gmail tracking)
+// ==========================
+model Email {
+  id            Int      @id @default(autoincrement())
+  subject       String
+  sender        String
+  snippet       String
+  detectedType  String?  // "interview" | "rejected" | "offer" | "assessment" | "unknown"
+  receivedAt    DateTime @default(now())
+
+  applicationId Int?
+  application   Application? @relation(fields: [applicationId], references: [id])
+}
