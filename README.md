@@ -45,8 +45,9 @@ cd backend
 npm install
 ```
 
-Create a `.env` file:
+Create a `.env` file in the `backend` folder:
 
+```env
 DATABASE_URL=your_postgresql_connection_string
 JWT_SECRET=your_jwt_secret
 PORT=5000
@@ -57,6 +58,7 @@ GEMINI_API_KEY=your_gemini_key
 GMAIL_CLIENT_ID=your_gmail_client_id
 GMAIL_CLIENT_SECRET=your_gmail_client_secret
 GMAIL_REDIRECT_URI=http://localhost:5000/api/gmail/callback
+```
 
 
 ```bash
