@@ -17,33 +17,8 @@ An AI-powered job application tracker that parses resumes, matches them against 
 **Frontend:** React, Vite, Tailwind CSS, Zustand, Axios, React Router, Lucide Icons
 
 ## Architecture
-User → Resume Upload → AI Parser (Gemini) → Skills Extracted
-↓
-Job Posting → AI Matching Engine → Match Score + Missing Skills
-↓
-Application Created → Gmail Sync → AI Email Classifier → Status Auto-Updated
 
-User
-  ↓
-Resume Upload
-  ↓
-AI Resume Parser (Gemini)
-  ↓
-Skills Extracted
-  ↓
-Job Posting
-  ↓
-AI Matching Engine
-  ↓
-Match Score + Missing Skills
-  ↓
-Application Created
-  ↓
-Gmail Sync
-  ↓
-AI Email Classifier
-  ↓
-Application Status Auto-Updated
+**User** uploads a resume → **Gemini AI** extracts skills → user applies to a **Job** → **AI Matching Engine** returns a match score and missing skills → an **Application** is created → **Gmail Sync** reads incoming emails → **AI Email Classifier** detects interview/rejection/offer → **Application status** updates automatically.
 
 
 ## Database Schema
