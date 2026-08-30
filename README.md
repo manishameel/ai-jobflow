@@ -18,7 +18,18 @@ An AI-powered job application tracker that parses resumes, matches them against 
 
 ## Architecture
 
-**User** uploads a resume → **Gemini AI** extracts skills → user applies to a **Job** → **AI Matching Engine** returns a match score and missing skills → an **Application** is created → **Gmail Sync** reads incoming emails → **AI Email Classifier** detects interview/rejection/offer → **Application status** updates automatically.
+```mermaid
+graph TD
+    A[User uploads Resume] --> B[Gemini AI Parser]
+    B --> C[Skills Extracted]
+    C --> D[User applies to Job]
+    D --> E[AI Matching Engine]
+    E --> F[Match Score + Missing Skills]
+    F --> G[Application Created]
+    G --> H[Gmail Sync]
+    H --> I[AI Email Classifier]
+    I --> J[Application Status Auto-Updated]
+```
 
 
 ## Database Schema
