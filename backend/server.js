@@ -12,7 +12,7 @@ const emailRoutes = require('./src/routes/emailRoutes');
 const app = express();
 
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://ai-jobflow-allw0woee-manisha-4e61.vercel.app']
+  origin: ['http://localhost:5173', 'https://ai-jobflow-pearl.vercel.app']
 }));
 app.use(express.json());
 
