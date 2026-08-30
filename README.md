@@ -23,6 +23,28 @@ Job Posting → AI Matching Engine → Match Score + Missing Skills
 ↓
 Application Created → Gmail Sync → AI Email Classifier → Status Auto-Updated
 
+User
+  ↓
+Resume Upload
+  ↓
+AI Resume Parser (Gemini)
+  ↓
+Skills Extracted
+  ↓
+Job Posting
+  ↓
+AI Matching Engine
+  ↓
+Match Score + Missing Skills
+  ↓
+Application Created
+  ↓
+Gmail Sync
+  ↓
+AI Email Classifier
+  ↓
+Application Status Auto-Updated
+
 
 ## Database Schema
 
