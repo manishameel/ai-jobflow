@@ -1,5 +1,11 @@
 # AI JobFlow
 
+🔗 **Live Demo:** [https://ai-jobflow-pearl.vercel.app](https://ai-jobflow-pearl.vercel.app)
+
+> Note: The backend runs on a free-tier server that spins down after inactivity. The first request after idle time may take 30–50 seconds to respond — subsequent requests will be fast.
+
+An AI-powered job application tracker that parses resumes, matches them against job descriptions, and automatically updates application status by reading your Gmail inbox.
+
 An AI-powered job application tracker that parses resumes, matches them against job descriptions, and automatically updates application status by reading your Gmail inbox.
 
 ## Features
