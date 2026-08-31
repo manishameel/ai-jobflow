@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { MapPin, Building2, X, Check, Plus } from 'lucide-react';
 import api from '../api/axios';
 import Layout from '../components/Layout';
+import SkeletonCard from '../components/SkeletonCard';
 
 export default function Jobs() {
   const [jobs, setJobs] = useState([]);
@@ -149,7 +150,12 @@ export default function Jobs() {
       </div>
 
       {loading ? (
-        <div className="text-text-muted text-sm">Loading jobs...</div>
+        <div className="grid grid-cols-2 gap-4">
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+        </div>
       ) : jobs.length === 0 ? (
         <div className="bg-surface border border-border rounded-xl p-8 text-center text-text-muted text-sm">
           No jobs posted yet.

@@ -4,6 +4,7 @@ import api from '../api/axios';
 import Layout from '../components/Layout';
 import MatchScoreRing from '../components/MatchScoreRing';
 import StatusPipeline from '../components/StatusPipeline';
+import SkeletonCard from '../components/SkeletonCard';
 
 export default function Dashboard() {
   const [applications, setApplications] = useState([]);
@@ -92,7 +93,11 @@ export default function Dashboard() {
         </div>
 
         {loading ? (
-          <div className="p-8 text-center text-text-muted text-sm">Loading applications...</div>
+          <div className="p-5 space-y-3">
+            <div className="h-16 bg-border/30 rounded-lg animate-pulse"></div>
+            <div className="h-16 bg-border/30 rounded-lg animate-pulse"></div>
+            <div className="h-16 bg-border/30 rounded-lg animate-pulse"></div>
+          </div>
         ) : applications.length === 0 ? (
           <div className="p-8 text-center text-text-muted text-sm">
             No applications yet. Apply to a job to see it here.

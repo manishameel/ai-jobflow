@@ -8,6 +8,7 @@ export default function ResumeUpload() {
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
   const [parsingId, setParsingId] = useState(null);
+  const [errorMsg, setErrorMsg] = useState('');
   const fileInputRef = useRef(null);
 
   useEffect(() => {
@@ -29,17 +30,24 @@ export default function ResumeUpload() {
     const file = e.target.files[0];
     if (!file) return;
 
+    if (file.type !== 'application/pdf') {
+      setErrorMsg('Only PDF files are supported');
+      setTimeout(() => setErrorMsg(''), 3000);
+      return;
+    }
+
     const formData = new FormData();
     formData.append('resume', file);
 
     setUploading(true);
+    setErrorMsg('');
     try {
       await api.post('/resume/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       await fetchResumes();
     } catch (err) {
-      console.log(err);
+      setErrorMsg(err.response?.data?.message || 'Upload failed. Please try again.');
     } finally {
       setUploading(false);
       e.target.value = '';
@@ -86,6 +94,10 @@ export default function ResumeUpload() {
           className="hidden"
         />
       </div>
+
+      {errorMsg && (
+        <p className="text-status-rejected text-xs text-center -mt-4 mb-8">{errorMsg}</p>
+      )}
 
       {loading ? (
         <div className="text-text-muted text-sm">Loading resumes...</div>
